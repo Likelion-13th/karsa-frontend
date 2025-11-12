@@ -7,8 +7,8 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom'; //URL에서 accessToken 지우기
 
 const Home = ({onLoginChange}) => {
-    const [cookies, setCookie] = useCookies(["accessToken"]);
-    const navigate = useNavigate();
+    const [, setCookie] = useCookies(["accessToken"]);
+    const navigate = useNavigate();//ff
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
