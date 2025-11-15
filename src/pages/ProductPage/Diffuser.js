@@ -1,60 +1,26 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Banner from "./Banner";
 import ProductCard from "./ProductCard";
 import "../../styles/ProductPage.css";
 import PayModal from "../../components/PayModal";
+import axios from "axios";
+import { useCookies } from "react-cookie";
 
 const Diffuser = () => {
-    const products = [
-        {
-            id: 1,
-            name: "시레나 오 드",
-            brand: "플로리스 런던",
-            price: 30000,
-            imagePath: "/img/diffuser_6.png",
-            isNew: true,
-        },
-         {
-            id: 2,
-            name: "시레나 오 드",
-            brand: "플로리스 런던",
-            price: 30000,
-            imagePath: "/img/diffuser_7.png",
-            isNew: true,
-        },
-         {
-            id: 3,
-            name: "시레나 오 드",
-            brand: "플로리스 런던",
-            price: 30000,
-            imagePath: "/img/diffuser_8.png",
-            isNew: true,
-        },
-         {
-            id: 4,
-            name: "시레나 오 드",
-            brand: "플로리스 런던",
-            price: 30000,
-            imagePath: "/img/diffuser_9.png",
-            isNew: true,
-        },
-         {
-            id: 5,
-            name: "시레나 오 드",
-            brand: "플로리스 런던",
-            price: 30000,
-            imagePath: "/img/diffuser_10.png",
-            isNew: true,
-        },
-    ];
-
+      const [products, setProducts] = useState([]);
 
 
       const [selectedProduct, setSelectedProduct] = useState(null);
       const [isModalOpen, setModalOpen] = useState(false);
+      const [cookies] = useCookies(["accessToken"]);
+
     
       const handleCardClick = (product) => {
             setSelectedProduct(product);
+            if(typeof cookies.accessToken !== "string"){ //야매방법
+                alert("로그인이 필요합니다");
+            return;
+            }
             setModalOpen(true);
         };
     
@@ -62,6 +28,22 @@ const Diffuser = () => {
             setSelectedProduct(null);
             setModalOpen(false);
         };
+        
+        useEffect (()=> {
+            axios
+                .get("/categories/2/items", { //11월 13일 멋사 과제는 이거 숫자만 다르게 하면 됨...!
+                    headers: {
+                    accept: "*/*",
+                    
+                },
+                })
+                .then((response) => {
+                    setProducts(response.data.result);
+                })
+                .catch((err) => {
+                console.log("CATEGORY API 요청 실패", err);
+                });
+            }, []);
 
     return (
         <div>
@@ -77,7 +59,7 @@ const Diffuser = () => {
 
                 </div>
             </div>
-                          {isModalOpen && (
+            {isModalOpen && (
         <PayModal product={selectedProduct} onClose={handleCloseModal} />
     )}
         </div>

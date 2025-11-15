@@ -1,134 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Banner from './Banner';
 import ProductCard from './ProductCard';
 import "../../styles/ProductPage.css";
 import PayModal from "../../components/PayModal";
+import axios from "axios";
+import { useCookies } from "react-cookie";
 
 const Perfume = () => {
-  const products = [
-    {
-      id: 1,
-      name: "퍼퓸",
-      brand: "브랜드",
-      price: 30000,
-      imagePath: "/img/perfume_1.png",
-      isNew: true,
-    },
-    {
-      id: 2,
-      name: "퍼퓸",
-      brand: "브랜드",
-      price: 30000,
-      imagePath: "/img/perfume_2.png",
-      isNew: true,
-    },
-    {
-      id: 3,
-      name: "퍼퓸",
-      brand: "브랜드",
-      price: 30000,
-      imagePath: "/img/perfume_3.png",
-      isNew: true,
-    },
-    {
-      id: 4,
-      name: "퍼퓸",
-      brand: "브랜드",
-      price: 30000,
-      imagePath: "/img/perfume_4.png",
-      isNew: true,
-    },
-    {
-      id: 5,
-      name: "퍼퓸",
-      brand: "브랜드",
-      price: 30000,
-      imagePath: "/img/perfume_5.png",
-      isNew: true,
-    },
-    {
-      id: 6,
-      name: "퍼퓸",
-      brand: "브랜드",
-      price: 30000,
-      imagePath: "/img/perfume_6.png",
-      isNew: true,
-    },
-     {
-      id: 7,
-      name: "퍼퓸",
-      brand: "브랜드",
-      price: 30000,
-      imagePath: "/img/perfume_7.png",
-      isNew: true,
-    },
-     {
-      id: 8,
-      name: "퍼퓸",
-      brand: "브랜드",
-      price: 30000,
-      imagePath: "/img/perfume_8.png",
-      isNew: true,
-    },
-     {
-      id: 9,
-      name: "퍼퓸",
-      brand: "브랜드",
-      price: 30000,
-      imagePath: "/img/perfume_9.png",
-      isNew: true,
-    },
-     {
-      id: 10,
-      name: "퍼퓸",
-      brand: "브랜드",
-      price: 30000,
-      imagePath: "/img/perfume_10.png",
-      isNew: true,
-    },
-     {
-      id: 11,
-      name: "퍼퓸",
-      brand: "브랜드",
-      price: 30000,
-      imagePath: "/img/perfume_11.png",
-      isNew: true,
-    },
-     {
-      id: 12,
-      name: "퍼퓸",
-      brand: "브랜드",
-      price: 30000,
-      imagePath: "/img/perfume_12.png",
-      isNew: true,
-    },
-     {
-      id: 13,
-      name: "퍼퓸",
-      brand: "브랜드",
-      price: 30000,
-      imagePath: "/img/perfume_13.png",
-      isNew: true,
-    },
-     {
-      id: 14,
-      name: "퍼퓸",
-      brand: "브랜드",
-      price: 30000,
-      imagePath: "/img/perfume_4.png",
-      isNew: true,
-    },
-     {
-      id: 15,
-      name: "퍼퓸",
-      brand: "브랜드",
-      price: 30000,
-      imagePath: "/img/perfume_15.png",
-      isNew: true,
-    },
-  ];
+  const [products, setProducts] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [cookies] = useCookies(["accessToken"]);
   const itemsPerPage = 5;
 
   const totalPages = Math.ceil(products.length / itemsPerPage);
@@ -146,6 +28,10 @@ const Perfume = () => {
 
   const handleCardClick = (product) => {
     setSelectedProduct(product);
+    if(typeof cookies.accessToken !== "string"){
+        alert("로그인이 필요합니다");
+      return;
+    }
     setModalOpen(true);
   };
 
@@ -153,6 +39,22 @@ const Perfume = () => {
     setSelectedProduct(null);
     setModalOpen(false);
   };
+
+  useEffect (()=> {
+      axios
+        .get("/categories/3/items", { //11월 13일 멋사 과제는 이거 숫자만 다르게 하면 됨...!
+              headers: {
+              accept: "*/*",
+                    
+                },
+                })
+                .then((response) => {
+                    setProducts(response.data.result);
+                })
+                .catch((err) => {
+                console.log("CATEGORY API 요청 실패", err);
+                });
+            }, []);
 
   return (
     <div>

@@ -1,10 +1,7 @@
 import React from "react";
 
-const Histrory = () => {
-    const onCancel = () => {
-        //API 호출
-        alert("취소");
-    }
+const Histrory = ({historyData, onCancel}) => {
+
     return(
         <div className="history-container-wrap">
             <div className="history-title">나의 쇼핑 내역</div>
@@ -24,21 +21,7 @@ const Histrory = () => {
                         <tr>
                             <td>2025-01-01</td>
                             <td>
-                                <div className="history-picture-container">
-                                    <img
-                                        src={`${process.env.PUBLIC_URL}/img/diffuser_1.png`}
-                                        alt="diffuser_1.png"
-                                        className="history-picture"
-                                    ></img>
-                                    <div className="history-text">
-                                        <div className="history-toptext">
-                                            엑스 베터버 오 드 퍼퓸
-                                        </div>
-                                        <div className="history-bottomtext">
-                                            줄리엇 레즈 어 건
-                                        </div>
-                                    </div>
-                                </div>
+                                크리드 어벤투스
                             </td>
                             <td>1</td>
                             <td>135,000원</td>
