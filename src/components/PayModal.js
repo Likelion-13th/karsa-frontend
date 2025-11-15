@@ -51,7 +51,7 @@ const PayModal = ({product, onClose}) => {
         setMileageToUse(numericValue);
     };
 
-    const handlePayment = async () => {{
+    const handlePayment = async () => {
         try{
             const response = await axios.post("/orders",
                 {
@@ -78,7 +78,7 @@ const PayModal = ({product, onClose}) => {
             console.error("결제 오류:", error);
             alert("결제 처리 중 오류가 발생했습니다.");
         }
-    }};
+    };
 
     return (
         <div className="modal">
