@@ -2,8 +2,8 @@
 /orders/*      http://Sajang-dev-env.eba-gchahrh4.ap-northeast-2.elasticbeanstalk.com/orders/:splat  200
 /tokens/*      http://Sajang-dev-env.eba-gchahrh4.ap-northeast-2.elasticbeanstalk.com/token/:splat   200
 /api/*         http://Sajang-dev-env.eba-gchahrh4.ap-northeast-2.elasticbeanstalk.com/api/:splat     200
+/orders*       http://Sajang-dev-env.eba-gchahrh4.ap-northeast-2.elasticbeanstalk.com/api/:splat     200
 /categories/*  http://Sajang-dev-env.eba-gchahrh4.ap-northeast-2.elasticbeanstalk.com/categories/:splat  200
-/orders/* http://Sajang-dev-env.eba-gchahrh4.ap-northeast-2.elasticbeanstalk.com/categories/:splat  200
-/cancel/* http://Sajang-dev-env.eba-gchahrh4.ap-northeast-2.elasticbeanstalk.com/categories/:splat  200
+
 
 /*  /index.html  200
